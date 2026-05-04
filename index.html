@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="BAR SNAPIR — תכנון, ייצור והתקנה של מתחמי נינג׳ה וכושר מקצועיים.">
+<title>BAR SNAPIR — בניית מתחמי כושר ונינג׳ה</title>
+<link rel="icon" type="image/png" href="./לוגו/Untitled-4-01.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#f9f9f7;--charcoal:#f0ebe5;--steel:#d8d0c8;
+  --metal:#8a7a72;--birch:#644a40;--silver:#646464;--white:#202020;
+  --nav-h:64px;--font-scale:1;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  font-weight:400;font-size:calc(15px * var(--font-scale));line-height:1.72;letter-spacing:.01em;
+  direction:rtl;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:inherit}
+
+/* ── ACCESSIBILITY WIDGET ── */
+#a11y-btn{
+  position:fixed;bottom:100px;left:20px;z-index:500;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--charcoal);border:1px solid var(--steel);
+  color:var(--white);font-size:20px;display:flex;align-items:center;justify-content:center;
+  transition:.2s;box-shadow:0 2px 12px rgba(0,0,0,.5);
+}
+#a11y-btn:hover{border-color:var(--birch)}
+#a11y-panel{
+  position:fixed;bottom:152px;left:20px;z-index:500;
+  background:var(--charcoal);border:1px solid var(--steel);
+  padding:16px;width:200px;display:none;flex-direction:column;gap:12px;
+  box-shadow:0 4px 24px rgba(0,0,0,.6);
+}
+#a11y-panel.open{display:flex}
+.a11y-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.a11y-label{font-size:12px;color:var(--silver)}
+.a11y-btns{display:flex;gap:4px}
+.a11y-btns button{
+  width:28px;height:28px;background:var(--steel);border:none;
+  color:var(--white);font-size:13px;font-weight:700;
+  transition:background .2s;
+}
+.a11y-btns button:hover{background:var(--birch);color:var(--black)}
+.a11y-toggle{
+  width:100%;padding:7px;background:var(--steel);border:none;
+  color:var(--silver);font-size:12px;text-align:right;
+  transition:background .2s;letter-spacing:.04em;
+}
+.a11y-toggle:hover,.a11y-toggle.on{background:var(--birch);color:var(--black)}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;right:0;left:0;z-index:200;
+  height:var(--nav-h);background:rgba(249,249,247,.97);
+  border-bottom:1px solid var(--steel);
+  display:flex;align-items:center;padding:0 28px;gap:0;
+  backdrop-filter:blur(10px);transition:border-color .3s;
+}
+.nav-logo-sm{display:flex;align-items:center;margin-left:auto}
+.nav-logo-sm img{height:36px;width:auto}
+.nav-center{display:flex;align-items:center;gap:0;margin:0 auto}
+.nav-item{
+  position:relative;padding:0 16px;height:var(--nav-h);
+  display:flex;align-items:center;
+  font-size:12px;color:var(--silver);letter-spacing:.06em;
+  font-weight:400;transition:color .2s;cursor:pointer;white-space:nowrap;
+}
+.nav-item:hover,.nav-item.active{color:var(--white)}
+.nav-item.has-drop::after{content:'▾';font-size:9px;margin-right:4px;margin-left:-2px}
+.nav-drop{
+  position:absolute;top:var(--nav-h);right:0;
+  background:var(--black);border:1px solid var(--steel);
+  border-top:2px solid var(--birch);
+  min-width:240px;display:none;flex-direction:column;
+  box-shadow:0 8px 32px rgba(0,0,0,.6);z-index:300;
+}
+.nav-item:hover .nav-drop{display:flex}
+.nav-drop a{
+  padding:12px 20px;font-size:12px;color:var(--silver);
+  letter-spacing:.05em;border-bottom:1px solid var(--steel);
+  transition:background .15s,color .15s;
+}
+.nav-drop a:last-child{border-bottom:none}
+.nav-drop a:hover{background:rgba(200,169,122,.08);color:var(--birch)}
+.nav-cta{
+  padding:8px 20px;background:var(--white);color:var(--black);
+  font-size:12px;font-weight:700;letter-spacing:.07em;border-radius:8px;
+  border:none;margin-right:16px;cursor:pointer;
+  transition:transform .25s ease, opacity .25s ease, background .25s ease;
+  white-space:nowrap;
+}
+.nav-cta:hover{transform:scale(1.06);opacity:.85}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;margin-right:auto;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white)}
+.mob-menu{
+  display:none;position:fixed;top:var(--nav-h);right:0;left:0;
+  background:var(--black);border-bottom:1px solid var(--steel);
+  padding:20px 24px;z-index:199;flex-direction:column;gap:0;
+  max-height:80vh;overflow-y:auto;
+}
+.mob-menu.open{display:flex}
+.mob-menu a{
+  padding:12px 0;font-size:14px;color:var(--silver);
+  border-bottom:1px solid var(--steel);
+}
+.mob-menu a:hover{color:var(--birch)}
+.mob-menu .mob-cta{
+  margin-top:16px;padding:14px;background:var(--white);border-radius:10px;
+  color:var(--black);font-weight:700;font-size:13px;text-align:center;
+  transition:transform .25s ease, opacity .25s ease;
+}
+.mob-menu .mob-cta:hover{transform:scale(1.04);opacity:.85}
+
+/* ── HERO ── */
+#hero{
+  position:relative;min-height:100vh;padding-top:var(--nav-h);
+  overflow:hidden;display:flex;flex-direction:column;justify-content:center;
+  background:#1e1410;
+}
+/* hero overrides — stays dark even on light theme */
+#hero .hero-brand-name{color:#ffe0c2}
+#hero .hero-label{color:rgba(255,224,194,.8)}
+#hero .hero-sub{color:rgba(238,238,238,.72)}
+#hero .btn-out{color:#eeeeee;border-color:rgba(238,238,238,.35)}
+#hero .btn-out:hover{border-color:#ffe0c2;color:#ffe0c2}
+#hero .btn-pri{background:#ffe0c2;color:#1e1410}
+#hero .btn-pri:hover{background:#fff5ec}
+.hero-bg-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;pointer-events:none;will-change:transform,clip-path;
+  clip-path:inset(5.5% 7%);
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to bottom,rgba(10,10,10,.78) 0%,rgba(10,10,10,.5) 40%,rgba(10,10,10,.88) 100%);
+}
+.hero-brand-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(22px,3vw,42px);
+  letter-spacing:.28em;color:var(--birch);
+  margin-bottom:18px;opacity:.95;
+}
+.hero-content{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:60px 48px 60px;text-align:center;will-change:transform}
+.hero-logo-big{
+  margin:0 auto 28px;max-height:320px;width:auto;
+  filter:drop-shadow(0 6px 32px rgba(0,0,0,.7));
+}
+.hero-label{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--birch);letter-spacing:.22em;margin-bottom:28px;
+}
+.hero-sub{font-size:16px;color:var(--silver);max-width:520px;margin:0 auto 40px;line-height:1.75}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-pri{
+  padding:14px 32px;background:var(--white);color:var(--black);border-radius:10px;
+  font-weight:700;font-size:13px;letter-spacing:.08em;border:none;cursor:pointer;
+  transition:transform .3s ease, opacity .3s ease, background .3s ease;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-pri:hover{transform:scale(1.06);opacity:.85}
+.btn-out{
+  padding:14px 32px;background:transparent;color:var(--white);border-radius:10px;
+  font-size:13px;letter-spacing:.08em;border:1px solid var(--steel);cursor:pointer;
+  transition:transform .3s ease, opacity .3s ease, border-color .3s ease;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-out:hover{transform:scale(1.06);opacity:.75;border-color:var(--birch)}
+.btn-wa{
+  padding:14px 28px;background:#25D366;color:#fff;border-radius:10px;
+  font-weight:700;font-size:13px;letter-spacing:.06em;border:none;cursor:pointer;
+  transition:transform .3s ease, opacity .3s ease;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-wa:hover{transform:scale(1.06);opacity:.85}
+.hero-stats{
+  margin-top:56px;border-top:1px solid var(--steel);padding-top:24px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+}
+.stat{padding:0 20px 0 0;border-left:1px solid var(--steel)}
+.stat:first-child{padding-right:0;border-left:none}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:.04em;line-height:1}
+.stat-l{font-size:11px;color:var(--metal);letter-spacing:.1em;margin-top:4px}
+
+/* ── SECTION COMMON ── */
+.wrap{max-width:1200px;margin:0 auto;padding:0 48px}
+.sec-hdr{padding:72px 0 48px}
+.sec-tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--birch);letter-spacing:.2em;margin-bottom:14px}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,68px);letter-spacing:.04em;line-height:1;color:var(--white)}
+.sec-title span{color:var(--birch)}
+.sec-div{width:44px;height:2px;background:var(--birch);margin-top:16px}
+
+/* fade */
+.fi{opacity:0;transform:translateY(30px) scale(0.97);transition:opacity .7s cubic-bezier(.25,.46,.45,.94),transform .7s cubic-bezier(.25,.46,.45,.94)}
+.fi.v{opacity:1;transform:none}
+
+/* ── BRAND DIVIDER ── */
+.brand-div{
+  text-align:center;padding:36px 24px;
+  background:#ede8e3;border-top:1px solid var(--steel);border-bottom:1px solid var(--steel);
+  overflow:hidden;
+}
+.brand-div-inner{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(28px,4vw,54px);
+  letter-spacing:.18em;color:rgba(100,74,64,.55);
+  display:inline-flex;gap:0 28px;flex-wrap:wrap;justify-content:center;align-items:center;
+}
+.brand-div-inner .bd-sep{
+  width:4px;height:4px;border-radius:50%;background:var(--metal);opacity:.5;
+  display:inline-block;margin:0 14px;vertical-align:middle;
+}
+/* fi-zoom: starts big, shrinks into place */
+.fi-zoom{opacity:0;transform:scale(1.06);transition:opacity .9s ease,transform .9s ease}
+.fi-zoom.v{opacity:1;transform:scale(1)}
+
+/* ── SERVICES ── */
+#services{
+  background:#f5f0eb;border-top:1px solid var(--steel);
+  background-image:repeating-linear-gradient(-45deg,transparent 0,transparent 2px,rgba(100,74,64,0.025) 2px,rgba(100,74,64,0.025) 4px);
+}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--steel);margin-bottom:72px}
+.svc-card{position:relative;overflow:hidden;padding:32px 24px;border-left:1px solid var(--steel);transition:background .3s}
+.svc-card:last-child{border-left:none}
+.svc-card:hover{background:rgba(255,224,194,.04)}
+.svc-card::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,0.045) 50%,transparent 65%);
+  transform:translateX(-120%);transition:transform .65s ease;pointer-events:none;
+}
+.svc-card:hover::before{transform:translateX(120%)}
+.svc-card>*{position:relative;z-index:1}
+.svc-card.feat{border-right:3px solid var(--birch)}
+.svc-num{font-family:'Bebas Neue',sans-serif;font-size:56px;color:rgba(255,255,255,.05);line-height:1;margin-bottom:12px}
+.svc-bar{width:28px;height:2px;background:var(--birch);margin-bottom:16px}
+.svc-name{font-size:15px;font-weight:700;color:var(--white);margin-bottom:10px;letter-spacing:.02em}
+.svc-desc{font-size:13px;color:var(--silver);line-height:1.65}
+
+/* ── GALLERY ── */
+#gallery{background:var(--black);border-top:1px solid var(--steel)}
+.gal-cats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+  margin-bottom:2px;
+}
+@media(max-width:600px){.gal-cats{grid-template-columns:repeat(2,1fr)}}
+.cat-card{
+  position:relative;height:180px;overflow:hidden;
+  background:var(--charcoal);cursor:pointer;
+  border:1px solid var(--steel);transition:border-color .2s;
+}
+.cat-card:hover{border-color:var(--birch)}
+.cat-card-inner{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
+  transition:background .3s;
+}
+.cat-card:hover .cat-card-inner{background:rgba(255,224,194,.06)}
+.cat-icon{font-size:32px;opacity:.6}
+.cat-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;color:var(--white)}
+.cat-count{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--birch);letter-spacing:.15em}
+.cat-arrow{
+  position:absolute;bottom:14px;left:14px;
+  font-size:18px;color:var(--birch);opacity:0;transition:opacity .2s;
+}
+.cat-card:hover .cat-arrow{opacity:1}
+
+/* Gallery filter bar */
+.gal-bar{
+  display:flex;gap:0;overflow-x:auto;
+  border-bottom:1px solid var(--steel);margin-bottom:24px;
+  scrollbar-width:none;
+}
+.gal-bar::-webkit-scrollbar{display:none}
+.gal-tab{
+  padding:12px 20px;font-size:12px;color:var(--metal);
+  letter-spacing:.08em;background:none;border:none;border-bottom:2px solid transparent;
+  white-space:nowrap;transition:color .2s,border-color .2s;
+}
+.gal-tab:hover{color:var(--silver)}
+.gal-tab.active{color:var(--birch);border-bottom-color:var(--birch)}
+
+/* Grid */
+.gal-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2px;margin-bottom:72px;
+}
+.gal-item{
+  position:relative;overflow:hidden;background:var(--charcoal);
+  aspect-ratio:4/3;cursor:pointer;
+}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gal-item:hover img{transform:scale(1.06)}
+.gal-item-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(30,20,16,.88) 0%,transparent 55%);
+  opacity:0;transition:opacity .3s;
+}
+.gal-item:hover .gal-item-overlay{opacity:1}
+.gal-item-label{
+  position:absolute;bottom:12px;right:12px;left:12px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--birch);letter-spacing:.12em;
+  opacity:0;transition:opacity .3s;
+}
+.gal-item:hover .gal-item-label{opacity:1}
+.gal-placeholder{
+  position:relative;overflow:hidden;background:var(--charcoal);
+  aspect-ratio:4/3;
+  border:1px dashed rgba(255,224,194,.25);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+}
+.gal-placeholder-icon{font-size:28px;color:rgba(255,224,194,.3)}
+.gal-placeholder-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,224,194,.4);letter-spacing:.15em}
+
+/* Lightbox */
+.lb{
+  position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.95);
+  display:none;align-items:center;justify-content:center;
+}
+.lb.open{display:flex}
+.lb-inner{position:relative;max-width:90vw;max-height:90vh}
+.lb-img{max-width:90vw;max-height:80vh;object-fit:contain;display:block}
+.lb-close{
+  position:absolute;top:-44px;left:0;
+  background:none;border:none;color:var(--white);font-size:28px;
+  cursor:pointer;transition:color .2s;
+}
+.lb-close:hover{color:var(--birch)}
+.lb-prev,.lb-next{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(10,10,10,.7);border:1px solid var(--steel);
+  color:var(--white);font-size:28px;width:48px;height:48px;
+  cursor:pointer;transition:background .2s,border-color .2s;
+}
+.lb-prev{right:-64px}
+.lb-next{left:-64px}
+.lb-prev:hover,.lb-next:hover{background:var(--birch);border-color:var(--birch);color:var(--black)}
+.lb-caption{
+  position:absolute;bottom:-36px;left:0;right:0;text-align:center;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--metal);letter-spacing:.1em;
+}
+.lb-counter{
+  position:absolute;top:-40px;right:0;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--metal);
+}
+
+/* ── WALL CLADDING ── */
+#wall-cladding{
+  background:#ede8e3;border-top:3px solid var(--birch);
+  background-image:
+    repeating-linear-gradient(90deg,rgba(255,255,255,0.015) 0,rgba(255,255,255,0.015) 1px,transparent 1px,transparent 40px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,0.015) 0,rgba(255,255,255,0.015) 1px,transparent 1px,transparent 40px);
+}
+.clad-intro{
+  display:grid;grid-template-columns:1fr 1fr;gap:72px;
+  align-items:center;padding:72px 0 52px;border-bottom:1px solid var(--steel);
+}
+.clad-text p{color:var(--silver);font-size:14px;line-height:1.8;margin-top:16px}
+.arch-block{padding:18px 22px;border:1px solid var(--steel);border-right:3px solid var(--birch);margin-top:16px}
+.arch-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--birch);letter-spacing:.18em;margin-bottom:8px}
+.arch-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:var(--white)}
+.clad-photo-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:3px;
+  margin-bottom:72px;padding-top:3px;
+}
+.clad-photo{overflow:hidden;background:var(--charcoal);aspect-ratio:4/3;cursor:pointer}
+.clad-photo:nth-child(1),.clad-photo:nth-child(7){grid-column:span 2;aspect-ratio:16/9}
+.clad-photo img{width:100%;height:100%;object-fit:cover;transition:transform .5s;display:block}
+.clad-photo:hover img{transform:scale(1.04)}
+
+/* ── PROCESS ── */
+#process{
+  background:#f5f0eb;border-top:1px solid var(--steel);
+  background-image:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(100,74,64,0.03) 3px,rgba(100,74,64,0.03) 4px);
+}
+.steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:2px solid;border-image:linear-gradient(to left,transparent,var(--birch),transparent) 1;
+  margin-bottom:72px;
+}
+.step{padding:36px 24px;border-left:1px solid var(--steel);position:relative}
+.step:last-child{border-left:none}
+.step-bg{
+  font-family:'Bebas Neue',sans-serif;font-size:72px;
+  color:rgba(100,74,64,.1);line-height:1;
+  position:absolute;top:20px;left:16px;
+}
+.step-z{position:relative;z-index:1}
+.step-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--birch);letter-spacing:.18em;margin-bottom:12px}
+.step-name{font-size:15px;font-weight:700;color:var(--white);margin-bottom:10px}
+.step-desc{font-size:13px;color:var(--metal);line-height:1.65}
+
+/* ── ABOUT ── */
+#about{background:#f9f9f7;border-top:1px solid var(--steel)}
+/* Top 2-col: text | tall portrait */
+.about-top{
+  display:grid;grid-template-columns:1fr 400px;gap:56px;
+  align-items:stretch;padding:72px 0 0;
+}
+.about-portrait{background:var(--charcoal);min-height:500px;display:flex;align-items:center;justify-content:center}
+.about-portrait img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .7s}
+.about-portrait:hover img{transform:scale(1.02)}
+/* Full-width photo strip below */
+.about-filmstrip{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:3px;margin-top:3px;padding-bottom:0;
+}
+.about-fs-item{background:var(--charcoal);display:flex;align-items:center;justify-content:center}
+.about-fs-item img{width:100%;height:auto;display:block;object-fit:contain;transition:transform .5s}
+.about-fs-item:hover img{transform:scale(1.05)}
+/* Text side */
+.about-text{padding-top:4px}
+.about-tagline{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(28px,3.5vw,44px);
+  letter-spacing:.06em;color:var(--white);
+  margin:18px 0 20px;line-height:1.1;
+}
+.about-body{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+.about-body p{font-size:14px;color:var(--silver);line-height:1.82}
+.about-body strong{color:var(--white);font-weight:600}
+.about-cred{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:1px solid var(--steel);margin-bottom:28px;
+}
+.about-cred-item{padding:14px 18px;border-left:1px solid var(--steel)}
+.about-cred-item:last-child{border-left:none}
+.about-cred-num{
+  font-family:'Bebas Neue',sans-serif;font-size:32px;
+  color:var(--birch);letter-spacing:.04em;line-height:1;
+}
+.about-cred-lbl{font-size:11px;color:var(--metal);letter-spacing:.06em;margin-top:4px}
+.about-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;margin-bottom:56px}
+.skill-tag{
+  padding:6px 12px;border:1px solid var(--steel);
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--silver);letter-spacing:.08em;
+  transition:border-color .2s,color .2s;
+}
+.skill-tag:hover{border-color:var(--birch);color:var(--birch)}
+@media(max-width:1100px){.about-top{grid-template-columns:1fr 340px;gap:40px}.about-filmstrip{grid-template-columns:repeat(8,1fr)}}
+@media(max-width:900px){.about-top{grid-template-columns:1fr;gap:28px}.about-portrait{min-height:360px}.about-filmstrip{grid-template-columns:repeat(6,1fr)}}
+@media(max-width:600px){.about-filmstrip{grid-template-columns:repeat(4,1fr)}}
+
+/* ── CONTACT ── */
+#contact{background:#ede8e3;border-top:3px solid var(--birch)}
+.contact-wrap{max-width:1200px;margin:0 auto;padding:72px 48px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.contact-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,76px);letter-spacing:.04em;line-height:1;margin-bottom:16px}
+.contact-sub{color:var(--silver);font-size:14px;line-height:1.8;margin-bottom:28px}
+.cmethod{
+  display:flex;align-items:center;gap:12px;padding:13px 16px;
+  border:1px solid var(--steel);margin-bottom:10px;transition:border-color .2s;
+}
+.cmethod:hover{border-color:var(--birch)}
+.cmethod-t{font-size:13px;color:var(--silver)}
+.cmethod-t strong{display:block;color:var(--white);margin-bottom:2px}
+.form{display:flex;flex-direction:column;gap:12px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-g{display:flex;flex-direction:column;gap:7px}
+.form-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--birch);letter-spacing:.15em}
+.form-in,.form-ta{
+  background:var(--charcoal);border:1px solid var(--steel);color:var(--white);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;
+  padding:11px 14px;outline:none;transition:border-color .2s;width:100%;direction:rtl;
+}
+.form-in:focus,.form-ta:focus{border-color:var(--birch)}
+.form-in::placeholder,.form-ta::placeholder{color:var(--metal)}
+.form-ta{resize:vertical;min-height:100px}
+.form-acts{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}
+.form-sub{
+  flex:1;padding:13px 24px;background:var(--white);color:var(--black);border-radius:10px;
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:.07em;border:none;cursor:pointer;
+  transition:transform .3s ease, opacity .3s ease;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.form-sub:hover{transform:scale(1.04);opacity:.85}
+.form-wa{
+  flex:1;padding:13px 24px;background:#25D366;color:#fff;border-radius:10px;
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:.06em;border:none;cursor:pointer;
+  transition:transform .3s ease, opacity .3s ease;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.form-wa:hover{transform:scale(1.04);opacity:.85}
+.form-note{font-size:11px;color:var(--metal)}
+
+/* ── FOOTER ── */
+footer{background:#1e1410;border-top:2px solid var(--birch);padding:32px 48px;color:#eeeeee}
+footer .foot-copy{color:rgba(238,238,238,.55)}
+footer .foot-xp{color:#ffe0c2}
+footer .foot-email{color:rgba(238,238,238,.7)}
+footer .foot-email:hover{color:#ffe0c2}
+.foot-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-center{display:flex;flex-direction:column;align-items:center;gap:4px}
+.foot-xp{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--birch);letter-spacing:.18em}
+.foot-contact{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.foot-logo img{height:80px;width:auto}
+.foot-copy{font-size:12px;color:var(--metal)}
+.foot-email{font-size:12px;color:var(--silver);transition:color .2s}
+.foot-email:hover{color:var(--birch)}
+
+/* ── WA FLOAT ── */
+.wa-float{
+  position:fixed;bottom:28px;left:20px;width:52px;height:52px;
+  background:#25D366;border-radius:50%;z-index:400;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 18px rgba(37,211,102,.4);transition:transform .2s;
+}
+.wa-float:hover{transform:scale(1.1)}
+.wa-float svg{width:26px;height:26px}
+
+/* high contrast mode */
+body.hc{--black:#000;--charcoal:#111;--steel:#555;--metal:#aaa;--silver:#ddd;--white:#fff;--birch:#FFD19A}
+body.hc .hero-overlay{background:rgba(0,0,0,.7)}
+body.hc a:not([class]){text-decoration:underline}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .svc-card:nth-child(2){border-left:1px solid var(--steel)}
+  .svc-card:nth-child(4){border-left:none}
+  .gal-cats{grid-template-columns:repeat(4,1fr)}
+  .gal-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:900px){
+  .nav-center{display:none}
+  .hamburger{display:flex}
+  .clad-intro{grid-template-columns:1fr;gap:28px}
+  .clad-photo-grid{grid-template-columns:repeat(2,1fr)}
+  .clad-photo:nth-child(1),.clad-photo:nth-child(7){grid-column:span 2;aspect-ratio:16/9}
+  .contact-grid{grid-template-columns:1fr;gap:40px}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .step:nth-child(2){border-left:1px solid var(--steel)}
+  .step:nth-child(4){border-left:none}
+  .clad-specs{grid-template-columns:1fr;gap:0}
+  .spec-i{border-left:none;border-top:1px solid var(--steel)}
+}
+@media(max-width:768px){
+  .wrap,.contact-wrap{padding:0 20px}
+  .hero-content{padding:48px 20px 48px}
+  .hero-logo-big{max-height:140px}
+  .foot-center,.foot-contact{align-items:center}
+  .hero-stats{grid-template-columns:repeat(2,1fr);gap:16px}
+  .stat{border-left:none;padding-right:0}
+  .gal-cats{grid-template-columns:repeat(2,1fr)}
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+  .svc-grid{grid-template-columns:1fr}
+  .svc-card{border-left:none;border-top:1px solid var(--steel)}
+  .clad-photo-grid{grid-template-columns:1fr 1fr}
+  .clad-photo:nth-child(1),.clad-photo:nth-child(7){grid-column:span 2}
+  .steps{grid-template-columns:1fr}
+  .step{border-left:none;border-top:1px solid var(--steel)}
+  .form-row{grid-template-columns:1fr}
+  footer{padding:28px 20px}
+  .foot-in{flex-direction:column;text-align:center}
+  .lb-prev{right:-40px}
+  .lb-next{left:-40px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── ACCESSIBILITY ── -->
+<button id="a11y-btn" onclick="toggleA11y()" aria-label="נגישות" title="אפשרויות נגישות">♿</button>
+<div id="a11y-panel" role="region" aria-label="פאנל נגישות">
+  <div class="a11y-row">
+    <span class="a11y-label">גודל טקסט</span>
+    <div class="a11y-btns">
+      <button onclick="fontSize(-1)" aria-label="הקטן טקסט">A-</button>
+      <button onclick="fontSize(0)" aria-label="אפס טקסט">↺</button>
+      <button onclick="fontSize(1)" aria-label="הגדל טקסט">A+</button>
+    </div>
+  </div>
+  <button class="a11y-toggle" id="hcBtn" onclick="toggleHC()">ניגודיות גבוהה</button>
+  <button class="a11y-toggle" id="ulBtn" onclick="toggleUL()">קו תחת קישורים</button>
+</div>
+
+<!-- ── NAV ── -->
+<nav id="mainNav">
+  <div class="nav-logo-sm">
+    <img src="./לוגו/שחור.png" alt="BAR SNAPIR" onerror="this.style.display='none'">
+  </div>
+  <div class="nav-center">
+    <div class="nav-item has-drop">
+      שירותים
+      <div class="nav-drop">
+        <a href="#services">קונסטרוקציות מתכת</a>
+        <a href="#gallery" onclick="setFilter('ninja')">שלדות נינג׳ה</a>
+        <a href="#gallery" onclick="setFilter('campus')">קירות קמפוס</a>
+        <a href="#gallery" onclick="setFilter('climbing')">קירות טיפוס</a>
+        <a href="#gallery" onclick="setFilter('cage')">כלובי כושר בהתאמה אישית</a>
+        <a href="#gallery" onclick="setFilter('cnc')">עבודות נגרות מותאמות אישית</a>
+        <a href="#wall-cladding">חיפויי קירות</a>
+      </div>
+    </div>
+    <a class="nav-item" href="#gallery">פרויקטים</a>
+    <a class="nav-item" href="#process">תהליך</a>
+    <a class="nav-item" href="#about">אודות</a>
+    <a class="nav-item" href="#contact">צרו קשר</a>
+  </div>
+  <button class="nav-cta" onclick="scrollToContact()">בקש הצעת מחיר</button>
+  <button class="hamburger" onclick="toggleMob()" aria-label="תפריט">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+  <a href="#services" onclick="closeMob()">קונסטרוקציות מתכת</a>
+  <a href="#gallery" onclick="closeMob();setFilter('ninja')">שלדות נינג׳ה</a>
+  <a href="#gallery" onclick="closeMob();setFilter('campus')">קירות קמפוס</a>
+  <a href="#gallery" onclick="closeMob();setFilter('climbing')">קירות טיפוס</a>
+  <a href="#gallery" onclick="closeMob();setFilter('cage')">כלובי כושר בהתאמה אישית</a>
+  <a href="#gallery" onclick="closeMob();setFilter('cnc')">עבודות נגרות</a>
+  <a href="#wall-cladding" onclick="closeMob()">חיפויי קירות</a>
+  <a href="#process" onclick="closeMob()">תהליך</a>
+  <a href="#about" onclick="closeMob()">אודות</a>
+  <a href="#contact" onclick="closeMob()">צרו קשר</a>
+  <button class="mob-cta" onclick="scrollToContact();closeMob()">בקש הצעת מחיר</button>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-content fi">
+    <div class="hero-brand-name">BAR SNAPIR</div>
+    <img class="hero-logo-big"
+         src="./לוגו/לבן.png"
+         alt="BAR SNAPIR"
+         onerror="this.src='./לוגו/Untitled-4-01.png'">
+    <div class="hero-label">ENGINEERING & FABRICATION · ייצור וביצוע</div>
+    <p class="hero-sub">תכנון, ייצור והתקנה מקצה לקצה — מהשרטוט הראשון ועד הברגה האחרונה.</p>
+    <div class="hero-ctas">
+      <a href="#gallery" class="btn-out">צפה בפרויקטים</a>
+      <button class="btn-pri" onclick="scrollToContact()">בקש הצעת מחיר</button>
+      <a href="https://wa.me/972525583033?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%94%D7%A9%D7%99%D7%A8%D7%95%D7%AA%D7%99%D7%9D"
+         class="btn-wa" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        וואטסאפ
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-top">
+
+      <!-- Text column -->
+      <div class="about-text fi">
+        <div class="sec-tag">// 01 — ABOUT</div>
+        <h2 class="sec-title">בר <span>סנפיר</span></h2>
+        <div class="sec-div"></div>
+        <p class="about-tagline">יזם. מתכנן. בונה.</p>
+
+        <div class="about-body">
+          <p>בר סנפיר הוא יזם, מתכנן ובונה מתחמי ספורט עם ניסיון של למעלה מ-<strong>15 שנה</strong> בתחום הייצור התעשייתי, הנגרות, המסגרות וניהול פרויקטים הנדסיים מורכבים.</p>
+          <p>לאורך השנים התמחה בר בהובלת פרויקטים משלב הרעיון ועד לביצוע מלא בשטח — תוך שילוב בין תכנון הנדסי מדויק, הבנה עמוקה של חומרים ותהליכי ייצור, וניהול מערכות ביצוע מורכבות הכוללות ספקים, ייצור והרכבה.</p>
+          <p>הרקע המקצועי שלו כולל עבודה אינטנסיבית עם עץ ומתכת, פיתוח מוצרים ב-CNC, תכנון קונסטרוקציות מורכבות, והובלת פרויקטים גדולים בקנה מידה ארצי — עם דגש על דיוק, עמידות וביצוע ברמה גבוהה.</p>
+          <p>במקביל, הניסיון האישי של בר כ<strong>ספורטאי תחרותי</strong>, כולל השתתפות בנינג'ה ישראל, הוביל אותו להתמחות ייחודית בתכנון והקמה של מתחמי נינג'ה, קירות טיפוס ומתקני כושר פונקציונליים. השילוב בין הבנה הנדסית עמוקה לבין ניסיון שימוש אמיתי במתקנים — מאפשר יצירת פתרונות חכמים, בטיחותיים ומדויקים לצרכים בשטח.</p>
+          <p>בר הוא מייסד חברת <strong>"לובו"</strong>, שפיתחה והקימה מתקני נינג'ה וקירות טיפוס, אשר נמכרה בהמשך לחברת יורוטק. במסגרת פעילותו ביורוטק, הוביל הקמה של עשרות מתחמים ברחבי הארץ, כולל פרויקטים מורכבים עבור רשתות ומתחמים פרטיים.</p>
+          <p>בר מביא לכל פרויקט <strong>גישה מערכתית מלאה</strong> — משלב האפיון, דרך תכנון וייצור, ועד הקמה בפועל. כל פרויקט נבנה מתוך הבנה עמוקה של השטח, חוויית המשתמש והדרישות ההנדסיות, עם ירידה לפרטים הקטנים וסטנדרט ביצוע גבוה במיוחד.</p>
+        </div>
+
+        <div class="about-cred">
+          <div class="about-cred-item">
+            <div class="about-cred-num">15+</div>
+            <div class="about-cred-lbl">שנות ניסיון</div>
+          </div>
+          <div class="about-cred-item">
+            <div class="about-cred-num">40+</div>
+            <div class="about-cred-lbl">פרויקטים הושלמו</div>
+          </div>
+        </div>
+
+        <div class="about-skills">
+          <span class="skill-tag">מתחמי נינג'ה מקצועיים</span>
+          <span class="skill-tag">קירות טיפוס בהתאמה אישית</span>
+          <span class="skill-tag">ריגים ומתקני כושר</span>
+          <span class="skill-tag">נגרות ומסגרות מותאמות</span>
+          <span class="skill-tag">CNC עץ ומתכת</span>
+          <span class="skill-tag">ניהול פרויקטים הנדסיים</span>
+        </div>
+      </div>
+
+      <!-- Portrait -->
+      <div class="about-portrait fi" style="transition-delay:.12s">
+        <img src="./תמונות שלי עובד ועושה נינגה/ITA03704.jpg" alt="בר סנפיר" loading="lazy">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Full-width photo filmstrip -->
+  <div class="about-filmstrip fi" style="transition-delay:.25s">
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/ITA03549.jpg"          alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/20210805 504931.JPG"  alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/ITA05307.jpg"         alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/20210805 505017.JPG"  alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/edited-IMG_3378.jpg"  alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/20210827 535145.JPG"  alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/ITA02144.jpg"         alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/ITA03711.jpg"         alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/20210805 504917.JPG"  alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/20210805 504940.JPG"  alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/20210827 535194.JPG"  alt="" loading="lazy"></div>
+    <div class="about-fs-item"><img src="./תמונות שלי עובד ועושה נינגה/edited-IMG_3262.jpg"  alt="" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- ── BRAND DIVIDER ── -->
+<div class="brand-div" aria-hidden="true">
+  <div class="brand-div-inner fi-zoom">
+    ENGINEERING
+    <span class="bd-sep"></span>
+    FABRICATION
+    <span class="bd-sep"></span>
+    NINJA COMPLEXES
+    <span class="bd-sep"></span>
+    METALWORK
+    <span class="bd-sep"></span>
+    CNC
+    <span class="bd-sep"></span>
+    EXECUTION
+  </div>
+</div>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-hdr fi">
+      <div class="sec-tag">// 01 — SERVICES</div>
+      <h2 class="sec-title">מה אנחנו <span>בונים</span></h2>
+      <div class="sec-div"></div>
+    </div>
+  </div>
+  <div class="wrap" style="padding-bottom:0">
+    <div class="svc-grid">
+      <div class="svc-card feat fi">
+        <div class="svc-num">01</div><div class="svc-bar"></div>
+        <div class="svc-name">שלדות נינג׳ה וכושר</div>
+      </div>
+      <div class="svc-card fi" style="transition-delay:.1s">
+        <div class="svc-num">02</div><div class="svc-bar"></div>
+        <div class="svc-name">קונסטרוקציות מתכת</div>
+      </div>
+      <div class="svc-card fi" style="transition-delay:.2s">
+        <div class="svc-num">03</div><div class="svc-bar"></div>
+        <div class="svc-name">נגרות אומן ו-CNC</div>
+      </div>
+      <div class="svc-card fi" style="transition-delay:.3s">
+        <div class="svc-num">04</div><div class="svc-bar"></div>
+        <div class="svc-name">חומרים מתקדמים</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-hdr fi">
+      <div class="sec-tag">// 02 — PORTFOLIO</div>
+      <h2 class="sec-title">פרויקטים <span>שהושלמו</span></h2>
+      <div class="sec-div"></div>
+    </div>
+  </div>
+
+  <!-- Category cards overview -->
+  <div class="wrap fi" style="padding-bottom:0">
+    <div class="gal-cats" id="catCards"></div>
+  </div>
+
+  <!-- Filter tabs + grid -->
+  <div class="wrap fi" style="padding-top:32px">
+    <div class="gal-bar" id="galTabs"></div>
+    <div class="gal-grid" id="galGrid"></div>
+    <div style="text-align:center;padding-bottom:60px">
+      <button class="btn-pri" onclick="scrollToContact()">מוכן לבנות את הפרויקט שלך?</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── WALL CLADDING ── -->
+<section id="wall-cladding">
+  <div class="wrap">
+    <div class="clad-intro fi">
+      <div class="clad-text">
+        <div class="sec-tag">// 03 — ARCHITECTURAL METALWORK</div>
+        <h2 class="sec-title">חיפויי <span>קירות</span></h2>
+        <div class="sec-div"></div>
+        <p>עיצוב ועיבוד מתכת ו-CNC לחיפויי קירות ואלמנטים אדריכליים ייחודיים. כל פאנל מיוצר בדיוק מרבי לפי מפרט אדריכלי.</p>
+      </div>
+      <div>
+        <div class="arch-block">
+          <div class="arch-label">// ARCHITECTURE COLLABORATION</div>
+          <div class="arch-name">PITZU KEDEM<br>ARCHITECTS</div>
+        </div>
+        <div class="arch-block" style="margin-top:2px;border-right:1px solid var(--steel)">
+          <div class="arch-label">// MATERIALS</div>
+          <p style="font-size:13px;color:var(--silver);line-height:1.7">קורטן · נירוסטה · אלומיניום CNC<br>לוחות ביריש · פולימרים מיוחדים</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap fi" style="padding-bottom:0">
+    <div class="clad-photo-grid">
+      <div class="clad-photo"><img src="./חיפויי קירות/3908dc59-9b28-49ad-8554-53ce2ecef4c9_rw_1920.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/07d553d3-4d29-4a0b-b6f7-4a528efe39db_rw_1200.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/1702c872-c401-4e00-982b-20eef9f7b44e_rw_1200.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/4af6e0d9-61f3-4cc1-aa06-1b5cfd34bc43_rw_1200.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/50dca9c3-4b84-4fa4-aa3b-fa37f46c0503_rw_1920.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/84becaa1-6d8a-449b-81d2-f3c2017745db_rw_600.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/cff314a5-a977-4c9e-8277-0d319b1849e4_rw_1920.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/ba56f778-7a65-4d34-8138-c6da35f5d3e3_rw_1200.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/c9881470-3119-4131-b312-91fc84268075_rw_1200.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/dbd38fd8-a85b-4bb5-a52c-f9805a4c627a_rw_1200.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/eaf6ddb3-ed34-4b14-829f-c14e36e9f4c6_rw_1200.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/f16066db-abdc-438a-86ee-50dff5206e2e_rw_1200.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/fd85ba44-0131-431d-9bd4-e2881ca7dda0_rw_1920.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/fd85ba44-0131-431d-9bd4-e2881ca7dda0_rw_1200.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/FB_IMG_1657688830328.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/FB_IMG_1657688835036.jpg" alt="חיפוי קיר" loading="lazy"></div>
+      <div class="clad-photo"><img src="./חיפויי קירות/FB_IMG_1657688858911.jpg" alt="חיפוי קיר" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section id="process">
+  <div class="wrap">
+    <div class="sec-hdr fi">
+      <div class="sec-tag">// 04 — HOW WE WORK</div>
+      <h2 class="sec-title">התהליך <span>שלנו</span></h2>
+      <div class="sec-div"></div>
+    </div>
+  </div>
+  <div class="wrap" style="padding-bottom:0">
+    <div class="steps">
+      <div class="step fi"><div class="step-bg">01</div><div class="step-z"><div class="step-tag">// PLANNING</div><div class="step-name">תכנון ורעיון</div><p class="step-desc">שיחת ייעוץ, הבנת הצרכים, שרטוט ראשוני, פריסה ותוכנית ביצוע.</p></div></div>
+      <div class="step fi" style="transition-delay:.1s"><div class="step-bg">02</div><div class="step-z"><div class="step-tag">// ENGINEERING</div><div class="step-name">תכנון הנדסי</div><p class="step-desc">מודלים 3D מלאים, חישובי עומסים, קבצי ייצור CNC לפי תקן.</p></div></div>
+      <div class="step fi" style="transition-delay:.2s"><div class="step-bg">03</div><div class="step-z"><div class="step-tag">// FABRICATION</div><div class="step-name">ייצור</div><p class="step-desc">חיתוך CNC, ריתוך, עיבוד מתכת ועץ — דיוק מרבי, בקרת איכות.</p></div></div>
+      <div class="step fi" style="transition-delay:.3s"><div class="step-bg">04</div><div class="step-z"><div class="step-tag">// INSTALLATION</div><div class="step-name">הרכבה מלאה</div><p class="step-desc">הרכבה מקצועית בשטח, חיבורים, בדיקות בטיחות ומסירה עם אחריות.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-grid">
+      <div class="fi">
+        <div class="sec-tag">// 05 — LET'S BUILD</div>
+        <h2 class="contact-h">מוכנים<br>לבנות?</h2>
+        <p class="contact-sub">שלחו לנו את מידות החלל והרעיון.<br>אנחנו נדאג לשאר — מהשרטוט ועד ההתקנה.</p>
+        <a href="mailto:barsnapir@gmail.com" class="cmethod">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--birch)" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div class="cmethod-t"><strong>מייל</strong>barsnapir@gmail.com</div>
+        </a>
+        <a href="https://wa.me/972525583033" class="cmethod" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--birch)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <div class="cmethod-t"><strong>וואטסאפ</strong>שלח הודעה ישירה</div>
+        </a>
+        <div style="padding:16px 20px;border:1px solid var(--steel);border-right:3px solid var(--birch);margin-top:10px">
+          <p style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--birch);letter-spacing:.18em;margin-bottom:6px">// RESPONSE TIME</p>
+          <p style="font-size:13px;color:var(--silver)">בדרך כלל מגיבים תוך שעות בודדות</p>
+        </div>
+      </div>
+      <div class="fi" style="transition-delay:.15s">
+        <form class="form" onsubmit="submitMail(event)">
+          <div class="form-row">
+            <div class="form-g"><label class="form-lbl" for="fn">// שם</label><input class="form-in" type="text" id="fn" placeholder="שמך המלא" required></div>
+            <div class="form-g"><label class="form-lbl" for="fp">// טלפון</label><input class="form-in" type="tel" id="fp" placeholder="050-0000000" required></div>
+          </div>
+          <div class="form-g"><label class="form-lbl" for="fe">// מייל</label><input class="form-in" type="email" id="fe" placeholder="your@email.com"></div>
+          <div class="form-g"><label class="form-lbl" for="ft">// סוג פרויקט</label><input class="form-in" type="text" id="ft" placeholder="נינג׳ה / כושר / חיפוי קיר..."></div>
+          <div class="form-g"><label class="form-lbl" for="fd">// פרטים</label><textarea class="form-ta" id="fd" placeholder="ספרו לנו על החלל, הרעיון, המיקום..."></textarea></div>
+          <div class="form-acts">
+            <button type="submit" class="form-sub">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              שלח מייל
+            </button>
+            <button type="button" class="form-wa" onclick="submitWA()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              שלח וואטסאפ
+            </button>
+          </div>
+          <p class="form-note">מייל פותח את תוכנת המייל. וואטסאפ פותח שיחה ישירה.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-logo"><img src="./לוגו/לבן.png" alt="BAR SNAPIR" onerror="this.style.display='none'"></div>
+    <div class="foot-center">
+      <span class="foot-copy">© BAR SNAPIR — כל הזכויות שמורות</span>
+      <span class="foot-xp">15 שנות ניסיון</span>
+    </div>
+    <div class="foot-contact">
+      <a href="tel:0525583033" class="foot-email">052-5583033</a>
+      <a href="mailto:barsnapir@gmail.com" class="foot-email">barsnapir@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── WA FLOAT ── -->
+<a class="wa-float" href="https://wa.me/972525583033?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%94%D7%A9%D7%99%D7%A8%D7%95%D7%AA%D7%99%D7%9D" target="_blank" rel="noopener" title="וואטסאפ">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lb" id="lb" onclick="lbClose(event)">
+  <div class="lb-inner" id="lbInner">
+    <button class="lb-close" onclick="lbClose()">✕</button>
+    <button class="lb-prev" onclick="lbNav(-1)">›</button>
+    <img class="lb-img" id="lbImg" src="" alt="">
+    <button class="lb-next" onclick="lbNav(1)">‹</button>
+    <div class="lb-caption" id="lbCaption"></div>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
+</div>
+
+<script>
+
+/* ─── GALLERY DATA ─── */
+const CATS = [
+  {id:'ninja',    name:"מתחמי נינג'ה"},
+  {id:'projects', name:'פרויקטים'},
+  {id:'cnc',      name:'נגרות CNC'},
+  {id:'cladding', name:'חיפויי קירות'},
+];
+
+const NF = './תמונות מקצועיות מכוני נינגה/';
+const PF = './מתחמי נינגה כלובי כושר קירות טיפוס ופארקור/';
+const CF = './נגרות מותאמת אישית/';
+const WF = './חיפויי קירות/';
+
+const PHOTOS = [
+  // ── מתחמי נינג'ה (professional) ──
+  {cat:'ninja', src:NF+'194A6946.jpg'}, {cat:'ninja', src:NF+'194A7046.jpg'},
+  {cat:'ninja', src:NF+'194A7049.jpg'}, {cat:'ninja', src:NF+'194A7270.jpg'},
+  {cat:'ninja', src:NF+'194A7271.jpg'}, {cat:'ninja', src:NF+'194A7301.jpg'},
+  {cat:'ninja', src:NF+'194A7305.jpg'}, {cat:'ninja', src:NF+'194A7308.jpg'},
+  {cat:'ninja', src:NF+'194A7309.jpg'}, {cat:'ninja', src:NF+'194A7315.jpg'},
+  {cat:'ninja', src:NF+'194A7316.jpg'}, {cat:'ninja', src:NF+'194A7318.jpg'},
+  {cat:'ninja', src:NF+'194A7330.jpg'}, {cat:'ninja', src:NF+'194A7429.jpg'},
+  {cat:'ninja', src:NF+'194A7491.jpg'}, {cat:'ninja', src:NF+'194A7521.jpg'},
+  {cat:'ninja', src:NF+'194A7768.jpg'}, {cat:'ninja', src:NF+'194A7783.jpg'},
+  {cat:'ninja', src:NF+'7H7A0369.jpg'}, {cat:'ninja', src:NF+'7H7A0371.jpg'},
+  {cat:'ninja', src:NF+'7H7A0373.jpg'}, {cat:'ninja', src:NF+'7H7A0377.jpg'},
+  {cat:'ninja', src:NF+'7H7A0379.jpg'}, {cat:'ninja', src:NF+'7H7A0384.jpg'},
+  {cat:'ninja', src:NF+'7H7A0385.jpg'}, {cat:'ninja', src:NF+'7H7A0402.jpg'},
+  {cat:'ninja', src:NF+'HS0A0042.jpg'}, {cat:'ninja', src:NF+'HS0A0051.jpg'},
+  {cat:'ninja', src:NF+'HS0A0090.jpg'}, {cat:'ninja', src:NF+'HS0A0121.jpg'},
+  {cat:'ninja', src:NF+'P1016880.jpg'}, {cat:'ninja', src:NF+'2.jpg'},
+  {cat:'ninja', src:NF+'8.jpg'},
+
+  // ── פרויקטים — נפח ומגוון ──
+  {cat:'projects', src:PF+'20210127_170631.jpg'}, {cat:'projects', src:PF+'20210505_165539.jpg'},
+  {cat:'projects', src:PF+'20210512_114014.jpg'}, {cat:'projects', src:PF+'20210512_133430.jpg'},
+  {cat:'projects', src:PF+'20210525_143639.jpg'}, {cat:'projects', src:PF+'20210601_154816.jpg'},
+  {cat:'projects', src:PF+'20210601_154828.jpg'}, {cat:'projects', src:PF+'20210706_144436.jpg'},
+  {cat:'projects', src:PF+'20210929_104138.jpg'}, {cat:'projects', src:PF+'20211118_093356.jpg'},
+  {cat:'projects', src:PF+'20211124_171701.jpg'}, {cat:'projects', src:PF+'20220217_122427.jpg'},
+  {cat:'projects', src:PF+'20220324_170212.jpg'}, {cat:'projects', src:PF+'20220530_110438.jpg'},
+  {cat:'projects', src:PF+'20220530_110440.jpg'}, {cat:'projects', src:PF+'20220601_112438.jpg'},
+  {cat:'projects', src:PF+'20220601_160004.jpg'}, {cat:'projects', src:PF+'20220719_134553.jpg'},
+  {cat:'projects', src:PF+'20220802_144627.jpg'}, {cat:'projects', src:PF+'20220803_123439.jpg'},
+  {cat:'projects', src:PF+'20220828_104945.jpg'}, {cat:'projects', src:PF+'20221207_124317.jpg'},
+  {cat:'projects', src:PF+'IMG-20210311-WA0050.jpg'}, {cat:'projects', src:PF+'IMG-20210818-WA0007.jpg'},
+  {cat:'projects', src:PF+'IMG-20211201-WA0008.jpg'}, {cat:'projects', src:PF+'IMG-20220116-WA0014.jpg'},
+  {cat:'projects', src:PF+'IMG-20220413-WA0035.jpg'}, {cat:'projects', src:PF+'IMG-20220616-WA0000.jpg'},
+  {cat:'projects', src:PF+'IMG-20220616-WA0001.jpg'}, {cat:'projects', src:PF+'IMG-20220629-WA0015.jpg'},
+  {cat:'projects', src:PF+'IMG-20230424-WA0006.jpg'},
+
+  // ── נגרות CNC ──
+  {cat:'cnc', src:CF+'037c9e7b-c20f-439a-87c4-bb574c43be03.jpg'},
+  {cat:'cnc', src:CF+'20220921_143935.jpg'},
+  {cat:'cnc', src:CF+'2b069014-c039-4803-b2cd-4dbc45e4d326.jpg'},
+  {cat:'cnc', src:CF+'40c0427b-4107-48b7-a6fe-a48462dec0a4.jpg'},
+  {cat:'cnc', src:CF+'961358c4-7e70-48c0-8b99-221e9c4d1e19.jpg'},
+  {cat:'cnc', src:CF+'IMG_1668.WEBP'},
+  {cat:'cnc', src:CF+'d6137f9f-6a73-4f4e-9d7a-2956dc3ba7f2.jpg'},
+
+  // ── חיפויי קירות ──
+  {cat:'cladding', src:WF+'3908dc59-9b28-49ad-8554-53ce2ecef4c9_rw_1920.jpg'},
+  {cat:'cladding', src:WF+'50dca9c3-4b84-4fa4-aa3b-fa37f46c0503_rw_1920.jpg'},
+  {cat:'cladding', src:WF+'cff314a5-a977-4c9e-8277-0d319b1849e4_rw_1920.jpg'},
+  {cat:'cladding', src:WF+'ba56f778-7a65-4d34-8138-c6da35f5d3e3_rw_1200.jpg'},
+  {cat:'cladding', src:WF+'dbd38fd8-a85b-4bb5-a52c-f9805a4c627a_rw_1200.jpg'},
+  {cat:'cladding', src:WF+'eaf6ddb3-ed34-4b14-829f-c14e36e9f4c6_rw_1200.jpg'},
+  {cat:'cladding', src:WF+'07d553d3-4d29-4a0b-b6f7-4a528efe39db_rw_1200.jpg'},
+  {cat:'cladding', src:WF+'1702c872-c401-4e00-982b-20eef9f7b44e_rw_1200.jpg'},
+  {cat:'cladding', src:WF+'4af6e0d9-61f3-4cc1-aa06-1b5cfd34bc43_rw_1200.jpg'},
+  {cat:'cladding', src:WF+'c9881470-3119-4131-b312-91fc84268075_rw_1200.jpg'},
+];
+
+/* Build category cards */
+const catCards=document.getElementById('catCards');
+CATS.forEach(c=>{
+  catCards.innerHTML+=`
+  <div class="cat-card" onclick="setFilter('${c.id}');document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
+    <div class="cat-card-inner">
+      <div class="cat-name">${c.name}</div>
+    </div>
+    <div class="cat-arrow">→</div>
+  </div>`;
+});
+
+/* Build filter tabs */
+const galTabs=document.getElementById('galTabs');
+galTabs.innerHTML=`<button class="gal-tab active" data-f="all" onclick="setFilter('all')">הכל</button>`;
+CATS.forEach(c=>{
+  galTabs.innerHTML+=`<button class="gal-tab" data-f="${c.id}" onclick="setFilter('${c.id}')">${c.name}</button>`;
+});
+
+let currentFilter='all';
+let lbPhotos=[], lbIdx=0;
+
+function setFilter(f){
+  currentFilter=f;
+  document.querySelectorAll('.gal-tab').forEach(t=>{
+    t.classList.toggle('active',t.dataset.f===f);
+  });
+  renderGrid();
+}
+
+function renderGrid(){
+  const grid=document.getElementById('galGrid');
+  const filtered=currentFilter==='all'?PHOTOS:PHOTOS.filter(p=>p.cat===currentFilter);
+  lbPhotos=filtered;
+
+  let html='';
+  filtered.forEach((p,i)=>{
+    html+=`<div class="gal-item" onclick="lbOpen(${i})">
+      <img src="${p.src}" alt="${p.title}" loading="lazy" onerror="this.closest('.gal-item').style.display='none'">
+      <div class="gal-item-overlay"></div>
+      <div class="gal-item-label">${p.title}</div>
+    </div>`;
+  });
+
+  // Placeholder slots for each category with no photos
+  if(currentFilter!=='all'){
+    const placeholders = Math.max(0, 4-filtered.length);
+    for(let i=0;i<placeholders;i++){
+      html+=`<div class="gal-placeholder">
+        <div class="gal-placeholder-icon">+</div>
+        <div class="gal-placeholder-text">פרויקט בקרוב</div>
+      </div>`;
+    }
+  }
+
+  grid.innerHTML=html;
+}
+renderGrid();
+
+/* Lightbox */
+function lbOpen(idx){
+  lbIdx=idx;
+  document.getElementById('lb').classList.add('open');
+  lbShow();
+}
+function lbShow(){
+  const p=lbPhotos[lbIdx];
+  document.getElementById('lbImg').src=p.src;
+  document.getElementById('lbImg').alt=p.title;
+  document.getElementById('lbCaption').textContent=p.title;
+  document.getElementById('lbCounter').textContent=`${lbIdx+1} / ${lbPhotos.length}`;
+}
+function lbNav(d){
+  lbIdx=(lbIdx+d+lbPhotos.length)%lbPhotos.length;
+  lbShow();
+  event&&event.stopPropagation();
+}
+function lbClose(e){
+  if(!e||e.target.id==='lb'||e.target.classList.contains('lb-close')){
+    document.getElementById('lb').classList.remove('open');
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lb').classList.contains('open'))return;
+  if(e.key==='Escape')lbClose();
+  if(e.key==='ArrowRight')lbNav(-1);
+  if(e.key==='ArrowLeft')lbNav(1);
+});
+
+/* ─── NAV ─── */
+function toggleMob(){document.getElementById('mobMenu').classList.toggle('open')}
+function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+function scrollToContact(){document.getElementById('contact').scrollIntoView({behavior:'smooth'})}
+
+function updateHero(){
+  const y=window.scrollY;
+  document.getElementById('mainNav').style.borderBottomColor=
+    y>80?'rgba(100,74,64,.25)':'var(--steel)';
+  const heroH=document.getElementById('hero').offsetHeight;
+  if(y<heroH){
+    const p=Math.min(1,y/(heroH*0.7));
+    const hc=document.querySelector('.hero-content');
+    if(hc){
+      hc.style.transform=`translateY(${y*0.22}px)`;
+      hc.style.opacity=String(Math.max(0,1-p*1.5));
+    }
+  }
+}
+updateHero();
+window.addEventListener('scroll',updateHero,{passive:true});
+
+/* ─── SCROLL FADE ─── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')});
+},{threshold:.07,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+document.querySelectorAll('.fi-zoom').forEach(el=>obs.observe(el));
+
+/* ─── FORMS ─── */
+function submitMail(e){
+  e.preventDefault();
+  const n=document.getElementById('fn').value,
+        p=document.getElementById('fp').value,
+        em=document.getElementById('fe').value,
+        t=document.getElementById('ft').value,
+        d=document.getElementById('fd').value;
+  const s=encodeURIComponent('פנייה חדשה — BAR SNAPIR');
+  const b=encodeURIComponent(`שם: ${n}\nטלפון: ${p}\nמייל: ${em}\nסוג: ${t}\n\n${d}`);
+  window.location.href=`mailto:barsnapir@gmail.com?subject=${s}&body=${b}`;
+}
+function submitWA(){
+  const n=document.getElementById('fn').value||'לא צוין',
+        p=document.getElementById('fp').value||'לא צוין',
+        t=document.getElementById('ft').value||'לא צוין',
+        d=document.getElementById('fd').value||'לא צוין';
+  const msg=encodeURIComponent(`שלום BAR SNAPIR,\n\nשם: ${n}\nטלפון: ${p}\nסוג פרויקט: ${t}\n\n${d}\n\n— נשלח מהאתר`);
+  window.open(`https://wa.me/972525583033?text=${msg}`,'_blank');
+}
+
+
+/* ─── ACCESSIBILITY ─── */
+function toggleA11y(){document.getElementById('a11y-panel').classList.toggle('open')}
+let fs=1;
+function fontSize(d){
+  if(d===0){fs=1;}else{fs=Math.min(1.4,Math.max(0.8,fs+d*0.1));}
+  document.documentElement.style.setProperty('--font-scale',fs);
+}
+function toggleHC(){
+  document.body.classList.toggle('hc');
+  document.getElementById('hcBtn').classList.toggle('on',document.body.classList.contains('hc'));
+}
+function toggleUL(){
+  const on=document.body.classList.toggle('ul-links');
+  document.getElementById('ulBtn').classList.toggle('on',on);
+  if(on){const s=document.createElement('style');s.id='ul-style';s.textContent='a{text-decoration:underline!important}';document.head.appendChild(s);}
+  else{const s=document.getElementById('ul-style');if(s)s.remove();}
+}
+</script>
+</body>
+</html>
